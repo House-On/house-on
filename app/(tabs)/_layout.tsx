@@ -1,43 +1,88 @@
+import CustomHeader from '@/components/HeaderCustom';
+import { icons } from '@/constants/icons';
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Image, StyleSheet, Text, View } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+
+
+const TabIcon = ({focused, icone, titulo}: any) => {
+
+  return (
+    <View style={tabIconStyle.container}>
+      <Image source={icone} style={tabIconStyle.image}></Image>
+      <Text style={tabIconStyle.text} adjustsFontSizeToFit={true} >{titulo}</Text>
+    </View>
+  );
+}
+
+const tabIconStyle = StyleSheet.create({
+  /* Configurações de Estilo do Componente de TabIcon */
+  container: {
+    
+  },
+  image: {
+    width: 28,
+    height: 28
+  },
+  text: {
+    
+  }
+})
+
+const tabBarStyle = StyleSheet.create({
+    barContainer: {
+      margin: 0,
+      backgroundColor: '#EF9643',
+    },
+    itemStyle: {
+      margin: 5,
+      borderRadius: 10
+    }
+})
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarInactiveTintColor: 'black',
+        tabBarStyle: tabBarStyle.barContainer,
+        tabBarItemStyle: tabBarStyle.itemStyle,
+        tabBarShowLabel: false,
+        headerShown: true,
+        header: () => (<CustomHeader title="HouseON"></CustomHeader>),
+        headerStyle: {
+            backgroundColor: 'black'
+        }
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({focused}) => (
+            <TabIcon focused={focused} icone={icons.home} titulo="Home"></TabIcon>
+          )
         }}
       />
-      <Tabs.Screen
-        name="explore"
+
+      <Tabs.Screen 
+        name='config'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Configurações',
+          tabBarIcon: ({focused}) => (
+            <TabIcon focused={focused} icone={icons.home} titulo="Configurações" />
+          )
+        }}
+      />
+
+      <Tabs.Screen 
+        name='automacoes'
+        options={{
+          title: 'Automações',
+          tabBarIcon: ({focused}) => (
+            <TabIcon focused={focused} icone={icons.home} titulo="Automações" />
+          )
         }}
       />
     </Tabs>
