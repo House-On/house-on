@@ -4,7 +4,7 @@
     "slug": "houseon-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/logo-app.png",
     "scheme": "houseonapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
