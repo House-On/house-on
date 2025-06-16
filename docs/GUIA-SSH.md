@@ -1,108 +1,124 @@
+# Guia para Criar e Gerenciar Chaves SSH no GitHub (Windows)
 
-# Guia para Criar e Gerenciar Chaves SSH no GitHub
+Este guia é para desenvolvedores que usam **Windows** e desejam colaborar com o projeto utilizando autenticação via **SSH no GitHub**, evitando a necessidade de digitar usuário e token pessoal a cada operação `git`.
 
-As chaves SSH fornecem um canal seguro para autenticação e comunicação com o GitHub, permitindo que você interaja com seus repositórios sem a necessidade de digitar seu nome de usuário e Personal Access Token (PAT) a cada operação.
+---
 
-## Gerando uma Nova Chave SSH
+## Por que Usar Chaves SSH?
 
-Se você não tem chaves SSH ou prefere criar um novo par:
+As chaves SSH oferecem uma forma segura de autenticação com o GitHub, substituindo o uso de login e senha ou personal access token (PAT) em cada operação Git, como `clone`, `pull` e `push`.
 
-Abra o Terminal (Linux/macOS) ou Git Bash (Windows).
-Execute o comando ssh-keygen. É altamente recomendado usar o algoritmo ed25519 por ser mais seguro e eficiente. Substitua "seu_email@exemplo.com" pelo e-mail associado à sua conta do GitHub.
+---
 
+## 1. Gerar uma Nova Chave SSH
+
+> Use o **Git Bash** (instalado junto com o Git for Windows). Evite usar o Prompt de Comando ou PowerShell.
+
+### Passos:
+
+1. Abra o Git Bash.
+2. Execute o comando abaixo, substituindo pelo seu e-mail do GitHub:
 ```bash
 ssh-keygen -t ed25519 -C "seu_email@exemplo.com"
 ```
-
--t ed25519: Especifica o tipo de algoritmo da chave. Se você estiver em um sistema mais antigo que não suporta ed25519, pode usar rsa com um tamanho de bits maior: ssh-keygen -t rsa -b 4096 -C "seu_email@exemplo.com".
-
--C "seu_email@exemplo.com": Adiciona um comentário à sua chave pública, que é útil para identificar a chave no GitHub.
-
-Local para Salvar a Chave: O sistema irá perguntar onde você deseja salvar a chave.
+3. Quando for perguntado onde salvar a chave, pressione Enter para aceitar o local padrão:
 
 ```
-Enter a file in which to save the key (~/.ssh/id_ed25519):
+    Enter a file in which to save the key (/c/Users/SeuUsuario/.ssh/id_ed25519):
 ```
 
-Pressione Enter para aceitar o local padrão (~/.ssh/id_ed25519). Isso é geralmente o ideal.
-**Importante: Se você já tem uma chave com esse nome e quer criar uma nova separadamente, digite um novo nome de arquivo (ex: ~/.ssh/github_key_ed25519).**
+**Dica:** Se quiser manter múltiplas chaves (não importante), forneça um nome diferente (ex: `/c/Users/SeuUsuario/.ssh/github_key_ed25519`).
 
-Definindo uma Passphrase (Frase Secreta):
+4. Defina uma passphrase segura quando solicitado:
 
 ```
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
+    Enter passphrase (empty for no passphrase):  
+    Enter same passphrase again:
 ```
 
-**Recomendado: Digite uma frase secreta forte. Essa frase adiciona uma camada extra de segurança à sua chave privada. Você precisará digitá-la sempre que usar a chave (a menos que use um ssh-agent, que explicaremos a seguir).**
-Opcional: Se você não quiser uma passphrase (menos seguro), apenas pressione Enter duas vezes.
+- É recomendável definir uma frase secreta forte.
+- Se não quiser usar, apenas pressione Enter duas vezes (menos seguro).
 
-Após a geração, o terminal mostrará informações sobre sua chave, como o "fingerprint" e o "randomart image".
+---
 
-## Adicionando a Chave Pública à sua Conta do GitHub
+## 2. Adicionar a Chave Pública ao GitHub
 
-Agora que você tem um par de chaves, precisa informar ao GitHub sobre sua chave pública.
+### Copiando a chave pública:
 
-Copie sua Chave Pública para a Área de Transferência:
-
-- Windows (Git Bash):
+No Git Bash, execute:
 ```bash
 clip < ~/.ssh/id_ed25519.pub
 ```
+> Caso tenha salvo com outro nome, substitua `id_ed25519.pub` pelo nome correto.
 
-**Alternativa para qualquer OS:** Se os comandos acima não funcionarem, abra o arquivo ~/.ssh/id_ed25519.pub (ou o nome da sua chave pública) em um editor de texto simples e copie todo o conteúdo.
+**Alternativa manual:**  
+Abra o arquivo `.pub` no caminho onde você salvou a chave (ex: `C:\Users\SeuUsuario\.ssh\id_ed25519.pub`) com um editor de texto e copie todo o conteúdo.
 
-**Adicione a Chave Pública ao GitHub:**
-- Acesse o GitHub.com e faça login.
-- No canto superior direito, clique na sua foto de perfil e depois em Settings (Configurações).
-- No menu lateral esquerdo, navegue até SSH and GPG keys (Chaves SSH e GPG).
-- Clique no botão New SSH key (Nova chave SSH) ou Add SSH key (Adicionar chave SSH).
-- No campo "Title" (Título), dê um nome descritivo para sua chave (ex: "Laptop Pessoal", "Máquina de Trabalho", "MacBook Pro"). Isso ajuda a identificar de onde a chave está sendo usada.
-- No campo "Key" (Chave), cole o conteúdo da sua chave pública que você copiou anteriormente.
-- Clique em Add SSH key (Adicionar chave SSH). Se for solicitado, confirme sua senha do GitHub.
+### Adicionando ao GitHub:
 
-## Gerenciando Chaves com ssh-agent (Recomendado para Conveniência)
+1. Acesse [github.com](https://github.com) e faça login.
+2. Clique na sua foto de perfil (canto superior direito) > **Settings**.
+3. No menu lateral, clique em **SSH and GPG keys**.
+4. Clique no botão **New SSH key**.
+5. Preencha os campos:
+    - **Title:** Nome descritivo, como "Laptop Pessoal" ou "Máquina de Trabalho".
+    - **Key:** Cole o conteúdo da sua chave pública.
+6. Clique em **Add SSH key** e confirme sua senha, se necessário.
 
-O ssh-agent é um programa que gerencia suas chaves SSH, permitindo que você digite a passphrase apenas uma vez por sessão, em vez de a cada operação Git.
+---
 
-- Inicie o ssh-agent:
+## 3. Usar ssh-agent para Não Digitar a Passphrase Sempre
 
-**Linux/macOS:**
+O `ssh-agent` armazena suas chaves na sessão atual, evitando que você tenha que digitar a passphrase repetidamente.
 
+### Passos no Git Bash:
+
+1. Inicie o agente com:
 ```bash
 eval "$(ssh-agent -s)"
 ```
-
-**Windows (Git Bash):** O ssh-agent geralmente inicia automaticamente. Se não, use o mesmo comando acima.
-
-Adicione sua chave privada ao ssh-agent:
+2. Adicione sua chave privada ao agente:
 
 ```bash
 ssh-add ~/.ssh/id_ed25519
 ```
+> Se você usou outro nome para a chave, substitua o caminho corretamente.
 
-Se sua chave privada tiver uma passphrase, ele pedirá para você digitá-la neste momento. Digite a passphrase e pressione Enter. A chave será adicionada ao agente.
+Se sua chave tiver passphrase, será solicitado que você a digite neste momento.
 
-Se sua chave privada tiver um nome ou caminho diferente, substitua ~/.ssh/id_ed25519 pelo caminho correto.
+---
 
-Para garantir que o ssh-agent persista entre as sessões: A maneira de fazer isso varia um pouco entre sistemas operacionais e shells. No macOS, usar UseKeychain yes no ~/.ssh/config (ver abaixo) é uma boa opção. No Linux, você precisará adicionar os comandos de ssh-agent ao seu arquivo de inicialização do shell (ex: ~/.bashrc ou ~/.zshrc).
+## 🧪 4. Testar Conexão com o GitHub
 
-## Testando sua Conexão SSH com o GitHub
-
-Para verificar se tudo está configurado corretamente:
-
-Abra o Terminal (ou Git Bash).
-Execute o seguinte comando:
+Para verificar se tudo está funcionando corretamente:
 
 ```bash
 ssh -T git@github.com
 ```
 
-Você pode ser perguntado se deseja continuar conectando. Digite yes e pressione Enter.
-Se a conexão for bem-sucedida, você verá uma mensagem como esta (substituindo username pelo seu nome de usuário do GitHub):
+Caso apareça uma mensagem pedindo para confirmar a identidade do host, digite:
 
-Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+    yes
 
-Esta mensagem significa que sua chave SSH está funcionando perfeitamente!
+Se tudo estiver certo, você verá:
 
-Agora pode voltar para o guia de desenvolvimento: [Guia DEV](./GUIA-DEV.md)
+    Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+
+---
+
+## (Opcional) Automatizar o ssh-agent ao abrir o Git Bash
+
+Para evitar executar os comandos manualmente toda vez que abrir o terminal, adicione as linhas abaixo ao seu arquivo `~/.bash_profile` ou `~/.bashrc`:
+
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_ed25519
+
+---
+
+## Próximo Passo
+
+Agora que a autenticação SSH está funcionando, volte para o guia principal do projeto:
+
+[Voltar para o Guia de Desenvolvimento](./GUIA-DEV.md)
+
+---

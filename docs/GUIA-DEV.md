@@ -1,24 +1,25 @@
+# Guia para Desenvolvimento do App
 
-# Guia para o desenvolvimento do APP
+## Instalações Necessárias
 
-### Instalações necessárias:
+1. **Git**: Para versionamento de código.
+2. **Node.js**: Necessário para rodar o projeto.
+3. **Expo GO (Celular)**: Para testar o app no celular.
+4. **Expo CLI**: Ferramenta para iniciar o projeto Expo.
+5. **VSCode**: Editor de código.
 
-- Git
-- Node
-- Expo GO(Celular)
-- Expo CLI
-- VSCode
+Antes de começar, **verifique se o Git está instalado**. Se não tiver, recomendo seguir o minicurso de Git da Código Fonte TV:  
+[Minicurso de Git - Código Fonte TV](https://www.youtube.com/watch?v=ts-H3W1uLMM)
 
-**Antes de ler esse guia é importante que o git esteja instalado na sua máquina**. Minha recomendação é seguir o minicurso de git do código-fonte TV: https://www.youtube.com/watch?v=ts-H3W1uLMM
+Também **instale o Node.js**. Se tiver dúvidas, siga este tutorial:  
+[Instalar Node.js](https://nodejs.org/en)
 
-Como também estamos usando o node, é importante que instale ele na sua máquina. O link do site oficial do node para instalação: https://nodejs.org/en.
-Caso tenha dúvidas no processo de instalação do node, recomendo que assista esse vídeo também: https://www.youtube.com/watch?v=522HiDiAf0w&list=PLJ_KhUnlXUPtbtLwaxxUxHqvcNQndmI4B&index=2
+**Instale o VSCode** através deste link:  
+[Download VSCode](https://code.visualstudio.com/download)
 
-Para instalação do VSCode: https://code.visualstudio.com/download
+**Para testar as telas do app**, instale o **Expo GO** no seu celular (disponível na Play Store/App Store).
 
-Para fins de testes das telas do aplicativo, **é importante que instale no seu celular o aplicativo Expo GO.**
-
-E por fim, verifique as versões para confirmar a instalação correta, no seu terminal digite:
+Após instalar, **verifique se tudo está correto** com os seguintes comandos no terminal:
 
 ```bash
 git --version
@@ -26,110 +27,106 @@ node --version
 npm --version
 ```
 
-#### Configuração inicial do git
+### Configuração Inicial do Git
 
-Antes de usar o git, é importante que você configure ele inicialmente, no WINDOWS geralmente é instalado um git bash para executa os comandos do git:
+Antes de usar o Git, lembre-se de usar o git bash que veio instalado junto do Git, assim, configure suas informações de usuário:
 
 ```bash
 git config --global user.name "Seu Nome"
 git config --global user.email "seu.email@exemplo.com"
 ```
 
-E siga esse outro guia para pode usar o git com chaves ssh na sua máquina: [Guia para criar o SSH](./GUIA-SSH.md)
+**CONFIGURE O SEU GIT PARA USAR CHAVES SSH**: [Guia SSH](./GUIA-SSH.md).
 
-#### Leituras recomendadas
+### Leitura Recomendada
 
-Documentações das tecnologias usadas:
+1. [Documentação do Expo](https://docs.expo.dev/)
 
-- https://docs.expo.dev/
-- https://reactnative.dev/docs/getting-started
+2. [Documentação do React Native](https://reactnative.dev/docs/getting-started)
 
-### Configurações iniciais do Projeto
 
-Essa etapa de trabalho é executada somente uma vez, a não ser que você delete essa pasta futuramente. Caso não possua o repositório na sua máquina é desejável que clone ele em uma pasta do seu computador, para que consiga ter acesso aos arquivos do projeto.
+## Configuração Inicial do Projeto
 
-Primeiro crie uma pasta para colocar seus projetos de programação, abra seu git bash e digite:
+### Clonando o Repositório
+
+Se você ainda não tem o repositório, clone-o com os seguintes comandos:
 
 ```bash
 mkdir projetos-auto
 cd projetos-auto
-```
-
-O diretório pode ter qualquer outro nome, desde que não esqueça onde ele está localizado. Agora, o segundo passo é clonar o repositório remoto do github.
-
-```bash
 git clone git@github.com:House-On/house-on.git
 ```
 
-#### Resolvendo as dependências do projeto react native
+### Instalando Dependências
 
-Quando o repositório do github é clonado, ele ainda não está 100% pronto para rodar na sua máquina, ainda é preciso instalar as dependências com o uso do node.
-
-Primeiro, entre na pasta do projeto:
+Entre na pasta do projeto e instale as dependências:
 
 ```bash
 cd house-on
-```
-
-Instale todas as dependências para rodar o projeto digitando:
-
-```bash
 npm install
 ```
 
-### Práticas diárias para desenvolver o projeto
+Agora, você consegue rodar o projeto.
 
-Quando usamos o git, ele nos permite versionar o código e nos mostrar uma linha do tempo do projeto com o objetivo de facilitar a manutenibilidade como um todo. No contexto de uma organização a colaboração de diferentes pessoas no mesmo código-fonte pode causar conflitos no processo de "merge"/junção desses códigos desenvolvidos. **Portanto, para diminuir esses conflitos siga essas práticas sempre que começar o seu desenvolvimento.**
+## Práticas Diárias de Desenvolvimento
 
-Primeiro entre na pasta do projeto, usando git bash:
-
-```bash
-cd house-on
-```
-
-Execute esses comandos do git para manter o projeto da sua máquina atualizado com o projeto do repositório. SEMPRE EXECUTE ANTES DE DESENVOLVER SUAS DEMANDAS.
+**Mantenha seu repositório atualizado antes de começar a trabalhar**. No terminal, execute:
 
 ```bash
 git checkout main
 git pull origin main
 ```
 
-### Branches/Commits e Iniciando Projeto
+**Nunca trabalhe diretamente na branch main. Crie uma nova branch para cada nova tarefa (ex: criação de tela de cadastro)**.
 
-No desenvolvimento de um projeto a main do projeto, o código principal, geralmente só é usada para deploy (merge de códigos), portanto, **NUNCA desenvolva diretamente na main mas sim em outras branches**. Para criar uma branch e um commit no github geralmente se segue um padrão para melhorar a organização e manutenção do código, segue abaixo alguns links para entender mais sobre padrões para nomear suas branches e commits:
+### Criando Branches e Commits
 
-https://medium.com/prolog-app/nossos-padr%C3%B5es-de-nomenclatura-para-branches-e-commits-fade8fd17106
+Para criar uma branch de uma nova feature, **use a convenção:
+feat/nome-da-feature**
 
-Quando for criar uma branch pense na demanda que lhe foi pedida. Por exemplo, imagine que te pediram para criar uma tela de cadastro. Essa demanda possui a categoria de uma nova feature, portanto siga o padrão do artigo acima:
-
-{tipo da demanda}/{nome da funcionalidade}
-
-**Seguindo o exemplo apresentado:**
-
-feat/tela-cadastro
-
-Quando for desenvolver, digite:
+Por exemplo, para a tela de cadastro:
 
 ```bash
 git checkout -b feat/tela-cadastro
 ```
 
-Assim, você sairá da main e estará na sua branch para desenvolver sua feature especificada pela sua demanda.
+**Com isso, você sai da main e entra na sua branch para trabalhar.**
 
-Para criar e gerenciar seus commits eu recomendo ou usar o controle da sua IDE, como a seção de GIT do VSCode, ou aprender os comandos básicos do git caso não tenha visto o minicurso de git, como o ```git status```, ```git add``` e o ```git commit -m```.
+Para fazer commits no seu código, use no seu git bash(WINDOWS):
 
-Para rodar o projeto durante o seu desenvolvimento, digite:
+```bash
+git status       # Verifica alterações
+git add .        # Adiciona todas as alterações
+git commit -m "Descrição do que foi feito"
+```
+
+### Rodando o Projeto
+
+Durante o desenvolvimento, use o comando abaixo para rodar o projeto no terminal da sua IDE:
 
 ```bash
 npx expo start
 ```
 
-Agora, pode usar o aplicativo Expo GO para rodar o projeto no seu celular. Para finalizar o servidor e parar a aplicação basta digitar: ```Ctrl + C``` no terminal que iniciou.
+Abra o Expo GO no seu celular para visualizar a aplicação. Para parar o servidor, pressione Ctrl + C no terminal.
+Enviando a Branch para o Repositório
 
-Quando terminar de desenvolver sua feature e ela estiver funcionando da forma que acha certa, execute o comando abaixo para que essa branch esteja no repositório remoto.
+Quando a funcionalidade estiver pronta, envie sua branch para o GitHub:
 
 ```bash
 git push origin feat/tela-cadastro
 ```
 
-Agora, entre no site do repositório do github e abra a Pull Request da sua branch, informe o que aquela sua branch adiciona no projeto e se quiser adicione uma descrição do que você fez no pull request. Depois de enviar o Pull Request, basta esperar que o administrador da sua organização aprove ele para que sua branch seja mesclada na main.
+Após isso, crie uma Pull Request no GitHub, descreva o que foi feito e envie para revisão. Quando aprovado, sua branch será mesclada à main.
+
+## Resumo das Etapas
+
+1. Instale as ferramentas (Git, Node, Expo GO, VSCode).
+
+2. Clone o repositório e instale as dependências.
+
+3. Crie uma branch para sua tarefa, desenvolva, e faça commits regulares.
+
+4. Rodar e testar o projeto com Expo GO.
+
+5. Envie sua branch para o GitHub e abra uma Pull Request.
