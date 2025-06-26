@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { useRouter } from 'expo-router';
 import Logo from "../assets/icons/logo-app.png";
 import Cores from '../constants/cores';
 import { styles } from "./Styles";
@@ -12,6 +13,7 @@ export default function Login() {
     const [email,setEmail] = useState('');
     const [passWord,setPassword] = useState('');
     const [loading, setloading] = useState(false);
+    const router = useRouter()
 
 
     async function getLogin(){
@@ -25,6 +27,7 @@ export default function Login() {
             setTimeout(()=>{
                 if(email == 'acessoteste@gmail.com' && passWord == '123456'){
                     Alert.alert('Logado com sucesso');
+                    router.push('/home')
                 }else{
                     Alert.alert('Usuário ou senha incorretos');
                 }
