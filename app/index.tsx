@@ -3,8 +3,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import Logo from '../../assets/icons/logo-app.png';
-import Cores from '../../constants/cores';
+import Logo from "../assets/icons/logo-app.png";
+import Cores from '../constants/cores';
 import { styles } from "./Styles";
 
 export default function Login() {
