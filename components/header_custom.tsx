@@ -13,7 +13,7 @@ const CustomHeader = ({title}: any) => {
         <SafeAreaView style={headerStyle.headerSafe}>
 
             <View style={headerStyle.headerContainer}>
-                <TouchableWithoutFeedback onPress={() => router.push('/profile')}>
+                <TouchableWithoutFeedback onPress={() => router.push('/(main)/perfil')}>
                   <View style={headerStyle.profileIcon}>
                       <Image style={headerStyle.profileImage} source={require('@/assets/icons/logo-perfil.png')}/>
                   </View>
