@@ -1,5 +1,13 @@
-import Perfil from "@/components/perfil_page/perfil";
+import { Text, View } from "react-native";
 
-export default function rotaPerfil(){
-    return <Perfil />;
+const Profile = () => {
+    return (
+        <View>
+            <Text>
+                Essa é a tela de perfil
+            </Text>
+        </View>
+    );
 }
+
+export default Profile;

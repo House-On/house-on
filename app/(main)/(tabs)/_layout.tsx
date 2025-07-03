@@ -1,59 +1,43 @@
-import CustomHeader from '@/components/HeaderCustom';
+import CustomHeader from '@/components/header_custom';
+import TabIcon from '@/components/tab_icon';
 import { icons } from '@/constants/icons';
+import tabBarStyle from '@/styles/tab_bar.styles';
 import { Tabs } from 'expo-router';
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Pressable } from "react-native";
 
-const TabIcon = ({focused, icone, titulo}: any) => {
-
-  return (
-    <View style={tabIconStyle.container}>
-      <Image source={icone} style={tabIconStyle.image}></Image>
-      <Text style={tabIconStyle.text} adjustsFontSizeToFit={true} >{titulo}</Text>
-    </View>
-  );
-}
-
-const tabIconStyle = StyleSheet.create({
-  /* Configurações de Estilo do Componente de TabIcon */
-  container: {
-    
-  },
-  image: {
-    width: 28,
-    height: 28
-  },
-  text: {
-    
-  }
-})
-
-const tabBarStyle = StyleSheet.create({
-    barContainer: {
-      margin: 0,
-      backgroundColor: '#EF9643',
-    },
-    itemStyle: {
-      margin: 5,
-      borderRadius: 10
-    }
-})
-
+// Barra inferior do App
 export default function TabLayout() {
 
   return (
     <Tabs
       screenOptions={{
+        tabBarButton: (props: any) => (
+          <Pressable {...props}
+            android_ripple={{ color: 'transparent' }}
+          />
+        ),
         tabBarInactiveTintColor: 'black',
         tabBarStyle: tabBarStyle.barContainer,
         tabBarItemStyle: tabBarStyle.itemStyle,
         tabBarShowLabel: false,
         headerShown: true,
-        header: () => (<CustomHeader title="HouseON"></CustomHeader>),
+        header: () => <CustomHeader title="Uny"></CustomHeader>,
         headerStyle: {
             backgroundColor: 'black'
         }
       }}
     >
+
+      <Tabs.Screen 
+        name='chat'
+        options={{
+          title: 'Chat',
+          tabBarIcon: ({focused}) => (
+            <TabIcon focused={focused} icone={icons.home} titulo="Chat" />
+          )
+        }}
+      />
+
       <Tabs.Screen
         name="home"
         options={{
@@ -65,21 +49,11 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen 
-        name='config'
+        name='auto'
         options={{
-          title: 'Configurações',
+          title: 'Auto',
           tabBarIcon: ({focused}) => (
-            <TabIcon focused={focused} icone={icons.home} titulo="Configurações" />
-          )
-        }}
-      />
-
-      <Tabs.Screen 
-        name='automacoes'
-        options={{
-          title: 'Automações',
-          tabBarIcon: ({focused}) => (
-            <TabIcon focused={focused} icone={icons.home} titulo="Automações" />
+            <TabIcon focused={focused} icone={icons.home} titulo="Auto" />
           )
         }}
       />
