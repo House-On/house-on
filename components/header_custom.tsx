@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 // Componente de Header do aplicativo
-const CustomHeader = ({title}: any) => {
+const CustomHeader = () => {
 
     const router = useRouter()
     const imageSource = ''

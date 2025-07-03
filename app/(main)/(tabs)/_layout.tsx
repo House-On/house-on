@@ -21,13 +21,14 @@ export default function TabLayout() {
         tabBarItemStyle: tabBarStyle.itemStyle,
         tabBarShowLabel: false,
         headerShown: true,
-        header: () => <CustomHeader title="Uny"></CustomHeader>,
+        header: () => <CustomHeader />,
         headerStyle: {
             backgroundColor: 'black'
         }
       }}
     >
 
+      {/* Definição dos Icones da barra inferior */}
       <Tabs.Screen 
         name='chat'
         options={{
