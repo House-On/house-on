@@ -11,8 +11,8 @@ export default function RootLayout() {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="profile"/>
+      <Stack.Screen name="(main)/(tabs)" />
+      <Stack.Screen name="(main)/perfil"/>
     </Stack>
   </SafeAreaProvider>
 }

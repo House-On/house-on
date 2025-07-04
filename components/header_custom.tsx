@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 // Componente de Header do aplicativo
-const CustomHeader = ({title}: any) => {
+const CustomHeader = () => {
 
     const router = useRouter()
     const imageSource = ''
@@ -13,7 +13,7 @@ const CustomHeader = ({title}: any) => {
         <SafeAreaView style={headerStyle.headerSafe}>
 
             <View style={headerStyle.headerContainer}>
-                <TouchableWithoutFeedback onPress={() => router.push('/profile')}>
+                <TouchableWithoutFeedback onPress={() => router.push('/(main)/perfil')}>
                   <View style={headerStyle.profileIcon}>
                       <Image style={headerStyle.profileImage} source={require('@/assets/icons/logo-perfil.png')}/>
                   </View>
