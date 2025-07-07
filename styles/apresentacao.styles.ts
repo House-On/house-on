@@ -39,9 +39,9 @@ export const apresentacao_styles = StyleSheet.create({
     },
 
     logoTexto: {
-        fontSize: 64,
+        fontSize: 60,
         fontWeight: 'bold',
-        color: Cores.branco
+        color: Cores.branco,
     },
 
     containerBtn: {
@@ -65,7 +65,7 @@ export const apresentacao_styles = StyleSheet.create({
         alignItems: 'center',
 
         width: 382,
-        height: 72,
+        height: 60,
 
         shadowColor: Cores.preto,
         shadowOffset: {
@@ -80,6 +80,8 @@ export const apresentacao_styles = StyleSheet.create({
 
     btnTexto: {
         color: Cores.verde_principal,
-        fontSize: 24
+        fontSize: 20,
+        fontWeight: 400,
+        letterSpacing: 0.2
     }
 });
