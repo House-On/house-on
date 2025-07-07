@@ -1,7 +1,7 @@
-import CustomHeader from '@/components/header_custom';
-import TabIcon from '@/components/tab_icon';
+import CustomHeader from '@/components/headerCustom';
+import TabIcon from '@/components/tabIcon';
 import { icons } from '@/constants/icons';
-import tabBarStyle from '@/styles/tab_bar.styles';
+import tabBarStyle from '@/styles/tabBar.styles';
 import { Tabs } from 'expo-router';
 import { Pressable } from "react-native";
 

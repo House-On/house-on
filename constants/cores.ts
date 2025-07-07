@@ -16,7 +16,7 @@ const Cores: Cores = {
     verde_secundario: '#7de2d1',
     cinza: '#2b2c28',
     transparente: 'rgba(0, 0, 0, 0.0)',
-    degrade: '#11332E',
+    degrade: '#1A4C44',
     azul_link: '#63ADE5',
 };
 
