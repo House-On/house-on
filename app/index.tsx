@@ -1,7 +1,7 @@
 import Cores from "@/constants/cores";
 import { apresentacao_styles as aps } from "@/styles/apresentacao.styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 // Tela inicial do Aplicativo
@@ -9,6 +9,8 @@ export default function Index() {
 
   const backgroundImage = require("@/assets/images/fundo-conexao.jpg");
   const logo = require("@/assets/icons/logo-app-glow.png");
+
+  const router = useRouter()
 
   return (
     
@@ -42,10 +44,10 @@ export default function Index() {
 
         {/* Container dos Botões */}
         <View style={aps.containerBtn}>
-          <Pressable style={aps.btn}>
+          <Pressable style={aps.btn} onPress={() => router.push("/cadastro")}>
             <Text style={aps.btnTexto}>Criar Conta</Text>
           </Pressable>
-          <Pressable style={aps.btn}>
+          <Pressable style={aps.btn} onPress={() => router.push("/login")}>
             <Text style={aps.btnTexto}>Entrar na Conta</Text>
           </Pressable>
         </View>
